@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selva Pradeesh — Bioinformatician</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0b1622;
+    --bg2:      #111e2e;
+    --bg3:      #162234;
+    --border:   rgba(32, 210, 150, 0.15);
+    --teal:     #20d296;
+    --teal-dim: rgba(32, 210, 150, 0.55);
+    --teal-faint: rgba(32, 210, 150, 0.08);
+    --text:     #d8e8dd;
+    --text-dim: #7a9e8e;
+    --mono:     'JetBrains Mono', monospace;
+    --serif:    'EB Garamond', Georgia, serif;
+    --radius:   8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    height: 26px;
+  }
+  .ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker-scroll 60s linear infinite;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.08em;
+    line-height: 26px;
+    padding-left: 100%;
+  }
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 26px; left: 0; right: 0;
+    z-index: 99;
+    background: rgba(11, 22, 34, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 0 2rem;
+  }
+  nav a {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 12px 18px;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+    padding-top: calc(26px + 44px + 4rem);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    padding: 3rem 0 3.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .helix-bg {
+    position: absolute;
+    right: -1rem; top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.07;
+    pointer-events: none;
+  }
+
+  /* Photo */
+  .photo-frame {
+    position: relative;
+    width: 148px;
+    height: 185px;
+    flex-shrink: 0;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 1px solid var(--teal-dim);
+    border-radius: var(--radius);
+    pointer-events: none;
+  }
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg3);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid var(--border);
+  }
+  .photo-placeholder svg {
+    opacity: 0.35;
+  }
+  .photo-placeholder span {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 9.5px;
+    color: var(--teal-dim);
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+
+  /* Hero text */
+  .hero-info {}
+  .hero-info .name {
+    font-size: 2.6rem;
+    font-weight: 500;
+    font-style: italic;
+    color: #eaf5ee;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+  }
+  .hero-info .role {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.2rem;
+  }
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contacts a, .contacts span {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+  .contacts a:hover { color: var(--teal); }
+  .contacts .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--teal-dim);
+    flex-shrink: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── RESEARCH STATEMENT ── */
+  .research-text {
+    font-size: 1.05rem;
+    color: #c0ddd0;
+    line-height: 1.85;
+    border-left: 2px solid var(--teal-dim);
+    padding-left: 1.5rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .skill-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+  }
+  .skill-card .sk-label {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.6rem;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    background: var(--teal-faint);
+    border: 1px solid var(--border);
+    color: var(--teal-dim);
+    border-radius: 4px;
+    padding: 3px 9px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── EDUCATION TIMELINE ── */
+  .timeline { position: relative; padding-left: 1.8rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--teal), transparent);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -1.8rem;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1.5px solid var(--teal);
+    background: var(--bg);
+  }
+  .tl-year {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  .tl-degree {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #dff0e8;
+    line-height: 1.4;
+  }
+  .tl-inst {
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* ── PUBLICATION ── */
+  .pub-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .pub-card::before {
+    content: 'BOOK CHAPTER';
+    position: absolute;
+    top: 0; right: 0;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--teal);
+    background: var(--teal-faint);
+    padding: 4px 12px;
+    border-bottom-left-radius: var(--radius);
+  }
+  .pub-title {
+    font-size: 1rem;
+    color: #dff0e8;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    padding-right: 7rem;
+  }
+  .pub-meta {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ── GRID CARDS (conf / workshops / internships) ── */
+  .card-list { display: flex; flex-direction: column; gap: 1rem; }
+  .ev-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 0 1rem;
+    align-items: start;
+  }
+  .ev-year {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 500;
+    padding-top: 2px;
+  }
+  .ev-title {
+    font-size: 1rem;
+    color: #dff0e8;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .ev-sub {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .ev-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--teal-faint);
+    border: 1px solid var(--border);
+    color: var(--teal-dim);
+    border-radius: 3px;
+    padding: 2px 7px;
+    margin-top: 5px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .contacts { align-items: center; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- DNA sequence ticker -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker">
+    ATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGCATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGC&nbsp;&nbsp;&nbsp;
+    >sp|Plasmodium_falciparum|DHFR_drug_resistance&nbsp;&nbsp;ATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGCATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGC&nbsp;&nbsp;&nbsp;
+    >Anopheles_stephensi|VGSC_insecticide_resistance&nbsp;&nbsp;ATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGCATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGC&nbsp;&nbsp;&nbsp;
+    ATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGCATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGC&nbsp;&nbsp;&nbsp;
+    ATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGCATGCGATCGATCGATCGAATTCGGATCCTAGCTAGCTAGCTAGCTAGC&nbsp;&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#research">Research</a>
+  <a href="#skills">Skills</a>
+  <a href="#education">Education</a>
+  <a href="#publications">Publications</a>
+  <a href="#activities">Activities</a>
+</nav>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="about">
+
+    <!-- DNA helix SVG watermark -->
+    <svg class="helix-bg" width="220" height="300" viewBox="0 0 220 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#20d296" stroke-width="1.5">
+        <path d="M 40 0 Q 180 37.5 40 75 Q 180 112.5 40 150 Q 180 187.5 40 225 Q 180 262.5 40 300" fill="none"/>
+        <path d="M 180 0 Q 40 37.5 180 75 Q 40 112.5 180 150 Q 40 187.5 180 225 Q 40 262.5 180 300" fill="none"/>
+        <line x1="40" y1="0"   x2="180" y2="0"/>
+        <line x1="110" y1="9"  x2="110" y2="9"  stroke-width="4" stroke-linecap="round"/>
+        <line x1="40" y1="75"  x2="180" y2="75"/>
+        <line x1="110" y1="84" x2="110" y2="84" stroke-width="4" stroke-linecap="round"/>
+        <line x1="40" y1="150" x2="180" y2="150"/>
+        <line x1="110" y1="159" x2="110" y2="159" stroke-width="4" stroke-linecap="round"/>
+        <line x1="40" y1="225" x2="180" y2="225"/>
+        <line x1="110" y1="234" x2="110" y2="234" stroke-width="4" stroke-linecap="round"/>
+        <line x1="40" y1="300" x2="180" y2="300"/>
+      </g>
+    </svg>
+
+    <!-- Photo -->
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="19" r="11" stroke="#20d296" stroke-width="1.5"/>
+          <path d="M4 46c0-12.15 9.85-22 22-22s22 9.85 22 22" stroke="#20d296" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span>Place your<br>photo here</span>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="hero-info">
+      <div class="name">Selva Pradeesh</div>
+      <div class="role">Bioinformatician · Genomics &amp; Multi-Omics</div>
+      <div class="contacts">
+        <a href="mailto:selvapradeesh366@gmail.com"><span class="dot"></span>selvapradeesh366@gmail.com</a>
+        <a href="tel:+919361279597"><span class="dot"></span>+91 93612 79597</a>
+        <a href="https://linkedin.com/in/selva-pradeesh-254266232" target="_blank"><span class="dot"></span>linkedin · selva-pradeesh-254266232</a>
+        <span><span class="dot"></span>Dindigul, Tamil Nadu, India · Born 2003</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── RESEARCH INTERESTS ── -->
+  <section id="research">
+    <div class="section-label">// research interests</div>
+    <p class="research-text">
+      Exploring the population genomics, epigenomics, and transcriptomics of malaria parasites and mosquito
+      vectors endemic to India, with a focus on how genomic diversity and regulatory mechanisms influence
+      disease transmission and resistance. As India bears the highest malaria burden in Asia and aims for
+      elimination by 2030, the goal is to integrate whole-genome sequencing, multi-omics data, and
+      computational biology to study parasite drug resistance, mosquito insecticide resistance, and
+      host–pathogen–vector interactions — contributing towards novel molecular targets, surveillance
+      frameworks, and India's malaria elimination programme.
+    </p>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <div class="section-label">// research skills</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="sk-label">Wet Lab</div>
+        <div class="skill-tags">
+          <span class="tag">PCR</span>
+          <span class="tag">DNA Isolation</span>
+          <span class="tag">SDS-PAGE</span>
+          <span class="tag">In vitro Bioassays</span>
+          <span class="tag">MALDI-TOF MS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-label">Computational</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">R / RStudio</span>
+          <span class="tag">C</span>
+          <span class="tag">Network Analysis</span>
+          <span class="tag">Structural Biology</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-label">Omics &amp; Data</div>
+        <div class="skill-tags">
+          <span class="tag">Transcriptomics</span>
+          <span class="tag">Proteomics</span>
+          <span class="tag">Genomics</span>
+          <span class="tag">Multi-Omics Integration</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-label">Pipeline Development</div>
+        <div class="skill-tags">
+          <span class="tag">Computational Pipelines</span>
+          <span class="tag">Drug Discovery</span>
+          <span class="tag">Vaccine Design</span>
+          <span class="tag">Data Visualization</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section id="education">
+    <div class="section-label">// education</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-year">2025 — Ongoing</div>
+        <div class="tl-degree">M.Sc. Bioinformatics</div>
+        <div class="tl-inst">Sri Krishna Arts and Science College, Coimbatore &middot; Bharathiar University</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">2023</div>
+        <div class="tl-degree">B.Sc. Biochemistry</div>
+        <div class="tl-inst">PSG Arts and Science College, Coimbatore &middot; Bharathiar University</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">2020</div>
+        <div class="tl-degree">Higher Secondary — Bio-Mathematics</div>
+        <div class="tl-inst">Velammal Institutions, Karur</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">2018</div>
+        <div class="tl-degree">Secondary School (SSLC)</div>
+        <div class="tl-inst">Ponnu Matriculation School, Dharapuram</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PUBLICATIONS ── -->
+  <section id="publications">
+    <div class="section-label">// publications</div>
+    <div class="pub-card">
+      <div class="pub-title">Recent Advancements in Computational Biology — Chapter 13: Biomolecules</div>
+      <div class="pub-meta">
+        Year: 2021&nbsp;&nbsp;·&nbsp;&nbsp;ISBN: 978-81-966558-1-5&nbsp;&nbsp;·&nbsp;&nbsp;e-ISBN: 978-81-966558-7-7
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ACTIVITIES ── -->
+  <section id="activities">
+    <div class="section-label">// conferences, seminars &amp; workshops</div>
+    <div class="card-list">
+
+      <!-- Conferences -->
+      <div class="ev-card">
+        <div class="ev-year">2024</div>
+        <div>
+          <div class="ev-title">International Conference on Antibiotics and Alternative Strategies for Combating Antimicrobial Resistance</div>
+          <div class="ev-sub">Sponsored by Department of Biotechnology (DBT), Ministry of Science and Technology, Govt. of India — CTEP scheme</div>
+          <span class="ev-badge">Conference</span>
+        </div>
+      </div>
+
+      <!-- Seminar -->
+      <div class="ev-card">
+        <div class="ev-year">2025</div>
+        <div>
+          <div class="ev-title">MOTIF 2025 — National Seminar on Computational Mining and Integrative Omics for Biomedical Research</div>
+          <div class="ev-sub">Coimbatore</div>
+          <span class="ev-badge">Seminar</span>
+        </div>
+      </div>
+
+      <!-- Workshop 1 -->
+      <div class="ev-card">
+        <div class="ev-year">2025</div>
+        <div>
+          <div class="ev-title">Computational and Structural Biology in Drug and Vaccine Development</div>
+          <div class="ev-sub">Three-day hands-on training &middot; Sponsored by SERB-ANRF &middot; JSS Academy, Ooty</div>
+          <span class="ev-badge">Workshop</span>
+        </div>
+      </div>
+
+      <!-- Workshop 2 -->
+      <div class="ev-card">
+        <div class="ev-year">2025</div>
+        <div>
+          <div class="ev-title">Transcriptome Library Preparation and Data Analysis</div>
+          <div class="ev-sub">Three-day hands-on training &middot; IBAB, Bangalore</div>
+          <span class="ev-badge">Workshop</span>
+        </div>
+      </div>
+
+      <!-- Workshop 3 -->
+      <div class="ev-card">
+        <div class="ev-year">2025</div>
+        <div>
+          <div class="ev-title">Computational Tools for Visualization and Analysis of Disease Proteins</div>
+          <div class="ev-sub">Two-day national workshop &middot; Sponsored by TNSCST</div>
+          <span class="ev-badge">Workshop</span>
+        </div>
+      </div>
+
+      <!-- Workshop 4 -->
+      <div class="ev-card">
+        <div class="ev-year">2023</div>
+        <div>
+          <div class="ev-title">Innovative Solutions for Protein Characterization — MALDI-TOF MS</div>
+          <div class="ev-sub">Hands-on training &middot; Centre for Plant Molecular Biology &amp; Biotechnology, Tamil Nadu Agricultural University, Coimbatore</div>
+          <span class="ev-badge">Workshop</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Internships -->
+    <div class="section-label" style="margin-top: 2.5rem;">// internships</div>
+    <div class="card-list">
+
+      <div class="ev-card">
+        <div class="ev-year">2025</div>
+        <div>
+          <div class="ev-title">Network Analysis — 15-day Internship</div>
+          <div class="ev-sub">Amrita University, Coimbatore</div>
+          <span class="ev-badge">Internship</span>
+        </div>
+      </div>
+
+      <div class="ev-card">
+        <div class="ev-year">2022</div>
+        <div>
+          <div class="ev-title">In vitro Bioassays — 10-day Internship</div>
+          <div class="ev-sub">Avigen Bio Tech Pvt. Ltd., Chennai</div>
+          <span class="ev-badge">Internship</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  &gt; Selva Pradeesh &nbsp;|&nbsp; Bioinformatics · Genomics · Multi-Omics &nbsp;|&nbsp; India &nbsp;·&nbsp; 2025
+</footer>
+
+</body>
+</html>
